@@ -1,101 +1,104 @@
-
-
 export class Task {
-	constructor(text, creationDate, state=true, dueDate, id) { 
-		this.text = text;
-		this.creationDate = creationDate ? creationDate : new Date();
-		this.state = state;  //open = true, done = false
-		this.dueDate = dueDate ? dueDate : null;
-		this.id = id ? id : Math.random().toString(36).replace('0.', "id" || '');
-	}
+  constructor(text, creationDate, state = true, dueDate, id) {
+    this.text = text;
+    this.creationDate = creationDate ? creationDate : new Date();
+    this.state = state; //open = true, done = false
+    this.dueDate = dueDate ? dueDate : null;
+    this.id = id
+      ? id
+      : Math.random()
+          .toString(36)
+          .replace('0.', 'id' || '');
+  }
 }
 
 export class TodoList {
-	constructor(list) {
-		this.list = [];
-	}
+  constructor(list) {
+    this.list = [];
+  }
 }
 
 export class Service {
-	constructor() {
-		this.todoList = new TodoList();
-		this.storageService = new StorageService();	
-	}
-	
-	getAllTasks() {
-		this.getList();
-		const tasks = this.todoList.list.map(e => new Task(e.text, e.creationDate, e.state, e.dueDate, e.id));
-		return tasks;
-	}
+  constructor() {
+    this.todoList = new TodoList();
+    this.storageService = new StorageService();
+  }
 
-	createTask(text) {
-		const newTask = new Task(text);
-		return newTask;
-	}
+  getAllTasks() {
+    this.getList();
+    const tasks = this.todoList.list.map(
+      e => new Task(e.text, e.creationDate, e.state, e.dueDate, e.id),
+    );
+    return tasks;
+  }
 
-	getList() {
-		this.storageService.loadList(this.todoList);
-	}
+  createTask(text) {
+    const newTask = new Task(text);
+    return newTask;
+  }
 
-	addTaskToList(task) {
-		this.todoList.list.push(task);		
-		this.storageService.saveList(this.todoList);
-	}
+  getList() {
+    this.storageService.loadList(this.todoList);
+  }
 
-	createAndAddToList(text) {
-		const task = this.createTask(text);
-		this.addTaskToList(task);
-		return task;
-	}
+  addTaskToList(task) {
+    this.todoList.list.push(task);
+    this.storageService.saveList(this.todoList);
+  }
 
-	updateTaskText(id, text) {
-		if(text) {
-			const task = this.todoList.list.find( e => e.id === id);
-			task.text = text;
-			this.storageService.saveList(this.todoList);
-		}
-	}
+  createAndAddToList(text) {
+    const task = this.createTask(text);
+    this.addTaskToList(task);
+    return task;
+  }
 
-	changeTaskState(id, state) {
-		const task = this.todoList.list.find( e => e.id === id);
-		task.state = state;
-		if(!state) {
-			task.dueDate = new Date();
-		} else {
-			task.dueDate = null;
-		}
-		this.storageService.saveList(this.todoList);
-		return task;
-	}
+  updateTaskText(id, text) {
+    if (text) {
+      const task = this.todoList.list.find(e => e.id === id);
+      task.text = text;
+      this.storageService.saveList(this.todoList);
+    }
+  }
 
-	removeTask(id) {
-		this.todoList.list = this.todoList.list.filter( e => e.id !== id);
-		this.storageService.saveList(this.todoList);
-	}
+  changeTaskState(id, state) {
+    const task = this.todoList.list.find(e => e.id === id);
+    task.state = state;
+    if (!state) {
+      task.dueDate = new Date();
+    } else {
+      task.dueDate = null;
+    }
+    this.storageService.saveList(this.todoList);
+    return task;
+  }
+
+  removeTask(id) {
+    this.todoList.list = this.todoList.list.filter(e => e.id !== id);
+    this.storageService.saveList(this.todoList);
+  }
 }
 
 export class StorageService {
-	saveList(todoList) {
-		const list = JSON.stringify(todoList.list);
-		localStorage.setItem('todoList', list);
-	}
+  saveList(todoList) {
+    const list = JSON.stringify(todoList.list);
+    localStorage.setItem('todoList', list);
+  }
 
-	loadList(todoList) {
-		let list = localStorage.getItem('todoList');
-		if(!list) todoList.list = [];
-		else todoList.list = JSON.parse(list);
-		todoList.list.forEach(e => {
-			e.creationDate = e.creationDate ? new Date(e.creationDate) : null;
-			e.dueDate = e.dueDate ? new Date(e.dueDate) : null;
-		})
-	}
+  loadList(todoList) {
+    let list = localStorage.getItem('todoList');
+    if (!list) todoList.list = [];
+    else todoList.list = JSON.parse(list);
+    todoList.list.forEach(e => {
+      e.creationDate = e.creationDate ? new Date(e.creationDate) : null;
+      e.dueDate = e.dueDate ? new Date(e.dueDate) : null;
+    });
+  }
 
-	saveSort(type ,value) {
-		localStorage.setItem(type, value);
-	}
+  saveSort(type, value) {
+    localStorage.setItem(type, value);
+  }
 
-	restoreSort(type) {
-		return localStorage.getItem(type);
-	}
-
+  restoreSort(type) {
+    return localStorage.getItem(type);
+  }
 }
