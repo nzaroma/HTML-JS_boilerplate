@@ -1,10 +1,65 @@
 <!DOCTYPE html>
-  <head>
-    <title>HTML + JS boilerplate project</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  </head>
-  <body>
-    <div>Hello, world</div>
-  </body>
+
+<head>
+  <title>HTML + JS boilerplate project</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+
+<body>
+  <div class="container-body">
+    <div id="header" class="header">
+      <div id="title" class="title">Todo list</div>
+      <div id="search" class="search">
+        <input type="text" id="searchInput" class="searchInput" placeholder="Search...">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Search_Icon.svg/768px-Search_Icon.svg.png"
+          width="20px">
+      </div>
+    </div>
+    <div id="container" class="container">
+      <div id="creator" class="creator">
+        <input type="text" id="createTaskInput" class="createTaskInput" placeholder="New task...">
+        <button id="createTaskButton" class="createTaskButton">ADD</button>
+      </div>
+      <div id="openTasksContainer" class="taskContainer">
+        <div class="tasksLabelAndSort">
+          <span class="tasksLabel">Open</span>
+          <div class="sortDiv">
+            <select class="sort" id="openTasksSort">
+              <option>Date creation (Asc)</option>
+              <option>Date creation (Desc)</option>
+              <option>Text (Asc)</option>
+              <option>Text (Desc)</option>
+            </select>
+          </div>
+        </div>
+        <div id="openTasksList" class="taskList">
+
+        </div>
+        <div class="tasksClear">
+          <a id="openTasksClear" href="javascript:void(0)">Clear "Open" list</a>
+        </div>
+      </div>
+
+      <div id="doneTasksContainer" class="taskContainer">
+        <div class="tasksLabelAndSort">
+          <span class="tasksLabel">Done</span>
+          <div class="sortDiv">
+            <select class="sort" id="doneTasksSort">
+              <option>Due date creation (Asc)</option>
+              <option>Due date creation (Desc)</option>
+              <option>Text (Asc)</option>
+              <option>Text (Desc)</option>
+            </select>
+          </div>
+        </div>
+        <div id="doneTasksList" class="taskList"></div>
+        <div class="tasksClear">
+          <a id="doneTasksClear" href="javascript:void(0)">Clear "Done" list</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
 </html>
