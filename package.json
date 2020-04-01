@@ -31,16 +31,18 @@
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
     "start": "webpack-dev-server --mode development --open",
-    "lint": "eslint src -c .eslintrc --ext js"
+    "lint": "eslint src -c .eslintrc --ext js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/IgorKonovalov/HTML-JS_boilerplate.git"
+    "url": "git+https://github.com/nzaroma/HTML-JS_boilerplate.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/IgorKonovalov/HTML-JS_boilerplate/issues"
+    "url": "https://github.com/nzaroma/HTML-JS_boilerplate/issues"
   },
-  "homepage": "https://github.com/IgorKonovalov/HTML-JS_boilerplate#readme"
+  "homepage": "https://github.com/nzaroma/HTML-JS_boilerplate#readme"
 }
