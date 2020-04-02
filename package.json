@@ -33,6 +33,7 @@
     "build": "webpack --mode production",
     "start": "webpack-dev-server --mode development --open",
     "lint": "eslint src -c .eslintrc --ext js",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
   "repository": {
